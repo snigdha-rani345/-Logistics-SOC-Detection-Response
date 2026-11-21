@@ -1,0 +1,9 @@
+# Rule 5: Impossible Travel / New Location Login
+# MITRE ATT&CK: T1078 - Valid Accounts
+# Description: Hyderabad ka user achanak Russia se login = Hack!
+
+index=coldchain sourcetype=web_access_logs "Successful Login"
+| eval expected_location="Hyderabad, India", actual_location="Russia"
+| where actual_location != expected_location
+| eval severity="Critical", alert="Login from New Suspicious Location"
+| table _time, user, src_ip, actual_location, severity
