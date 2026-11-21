@@ -1,0 +1,7 @@
+# Rule 3: PowerShell Malicious Execution
+# MITRE ATT&CK: T1059.001 - PowerShell
+# Description: Encoded PowerShell command = Malware!
+
+index=coldchain sourcetype=linux_auth_logs "powershell" AND ("-enc" OR "-EncodedCommand")
+| eval severity="High", alert="Malicious PowerShell Detected"
+| table _time, user, src_ip, COMMAND, severity
