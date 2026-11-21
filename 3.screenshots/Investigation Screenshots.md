@@ -12,7 +12,7 @@ This project demonstrates end-to-end log analysis, threat hunting, detection eng
 
 ### 2. Successful Login Verification
 **Description:** Filtered for `login,success` events to distinguish legitimate user activity (`priya.sharma` from Hyderabad) from the unauthorized `admin` login originating from Russia.
-![Successful Login Search](images/02-successful-logins-search.jpeg)
+![Successful Login Search](Images/02-successful-logins-search.jpeg)
 
 ### 3. Data Exfiltration Investigation (`download_customer_data`)
 **Description:** Searched for sensitive data access actions, confirming that the attacker downloaded customer data immediately after compromising the `admin` account.
