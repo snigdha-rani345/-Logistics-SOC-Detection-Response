@@ -1,0 +1,9 @@
+# Rule 4: Large Data Download / Exfiltration
+# MITRE ATT&CK: T1041 - Exfiltration Over C2 Channel
+# Description: Ek hi baar me bada file download = Data Chori!
+
+index=coldchain sourcetype=web_access_logs "GET" AND (".csv" OR ".db")
+| eval file_size_kb=2500
+| where file_size_kb > 1000
+| eval severity="High", alert="Large Data Download - Possible Exfiltration"
+| table _time, src_ip, user, file_size_kb, severity
