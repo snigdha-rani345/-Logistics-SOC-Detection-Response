@@ -1,33 +1,22 @@
 
-# Incident Report: Hidden Attack on ColdChain SOC
+## End-to-End Attack Investigation & Timeline (MITRE ATT&CK Mapping)
 
-## 1. What Happened?
-Attacker ne ColdChain server par hidden attack kiya. Pehle brute force se password guess kiya, fir andar ghus ke data chori karne ki koshish ki.
+### Executive Summary
+During threat hunting on `cold-chain-logs.csv`, a multi-stage external attack was identified originating from IP address **`45.148.10.23` (Russia)**. The attacker conducted a rapid brute-force attack against the `admin` account, successfully authenticated, and exfiltrated sensitive customer records (`download_customer_data`) within a two-minute window. Meanwhile, legitimate user activity (`priya.sharma` from IP `192.168.1.10` in Hyderabad) was verified as normal baseline traffic.
 
-## 2. Timeline - Minute to Minute
+---
 
-| Time | What Happened | MITRE ATT&CK |
-| :--- | :--- | :--- |
-| 10:00 AM | Attacker ne 50 baar wrong password try kiya | T1110 - Brute Force |
-| 10:05 AM | Admin account `coldchain_admin` login ho gaya | T1078 - Valid Accounts |
-| 10:07 AM | Attacker ne `whoami` aur `ipconfig` command chalaya | T1087 - Discovery |
-| 10:10 AM | Attacker ne `customer_data.csv` download kiya | T1041 - Exfiltration |
-| 10:12 AM | Attacker ne apna IP hide karne ke liye logs delete kiye | T1070 - Clear Logs |
+### Reconstructed Attack Timeline & MITRE ATT&CK Mapping
 
-## 3. How We Detected?
-- Splunk Rule 1: Brute Force Rule ne alert diya
-- Splunk Rule 2: Data Exfiltration Rule ne alert diya
+| Stage | Timestamp (`2026-11-19`) | Event / Log Evidence | Source IP & Geo-Location | MITRE ATT&CK Tactic | MITRE ATT&CK Technique |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1. Credential Brute Force** | `09:02:11` – `09:02:41` | 5 consecutive `login,failed` events targeting the `admin` account within 30 seconds | `45.148.10.23` (Russia) | **Credential Access** (`TA0006`) | **T1110** – Brute Force |
+| **2. Account Compromise** | `09:03:05` | Successful authentication (`login,success`) into the `admin` account from a foreign location | `45.148.10.23` (Russia) | **Initial Access** (`TA0001`) & **Privilege Escalation** (`TA0004`) | **T1078** – Valid Accounts |
+| **3. Data Exfiltration** | `09:04:12` | Unauthorized execution of `download_customer_data` (`status=success`) using the compromised `admin` session | `45.148.10.23` (Russia) | **Collection** (`TA0009`) & **Exfiltration** (`TA0010`) | **T1530** – Data from Cloud Storage / Data Exfiltration |
 
-## 4. What We Did?
-- IP `45.155.204.11` ko BLOCK kiya
-- Admin account ko DISABLE kiya
-- Password RESET kiya
+---
 
-## 5. False Positive Check
-- Total Alerts: 50
-- Real Attack: 5
-- False Positive: 8 (16% - Less than 20%, So SUCCESS)
-
-## 6. Lessons Learned
-- MFA ON karna chahiye tha
-- Admin account ko lock karna chahiye
+### Investigation Key Takeaways
+* **Baseline vs. Malicious Activity:** Legitimate login by `priya.sharma` (`08:01:12`, Hyderabad) was separated from the malicious `admin` login (`09:03:05`, Russia).
+* **Post-Exploitation Check:** Executed a Splunk query for PowerShell activity (`action="*powershell*" OR action="*ps*"`), confirming **0 events**—indicating the attacker focused purely on data theft rather than lateral movement or host persistence.
+* **Total Attack Duration:** **2 minutes and 1 second** from the first failed login (`09:02:11`) to sensitive data exfiltration (`09:04:12`).
