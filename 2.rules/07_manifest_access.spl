@@ -1,0 +1,8 @@
+# Rule 7: Shipment Manifest Unauthorized Access
+# MITRE ATT&CK: T1005 - Data from Local System
+# Description: Shipment manifest bina permission khola = Info Leak!
+
+index=coldchain sourcetype=web_access_logs "shipment_manifest.csv"
+| where user != "authorized_manager"
+| eval severity="Medium", alert="Unauthorized Manifest Access"
+| table _time, user, src_ip, severity
