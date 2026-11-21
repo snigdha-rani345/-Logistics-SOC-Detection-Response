@@ -1,0 +1,9 @@
+# Rule 1: Brute Force Detection
+# MITRE ATT&CK: T1110 - Brute Force
+# Description: 5 se zyada Failed Login ek hi IP se = Attack!
+
+index=coldchain sourcetype=windows_security_logs "Failed password"
+| stats count by src_ip, user
+| where count > 5
+| eval severity="High", alert="Brute Force Attack Detected", attacker_ip=src_ip
+| table _time, src_ip, user, count, severity
