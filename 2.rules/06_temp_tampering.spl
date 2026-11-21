@@ -1,0 +1,9 @@
+# Rule 6: Temperature Tampering - Cold-Chain Attack
+# MITRE ATT&CK: T1565.001 - Stored Data Manipulation
+# Description: Vaccine ka temp 2C se 18C kar diya = Vaccine Kharab!
+
+index=coldchain sourcetype=web_access_logs "temperature/update"
+| eval old_temp=2, new_temp=18, temp_change=new_temp-old_temp
+| where temp_change > 5
+| eval severity="Critical", alert="Temperature Tampering - Vaccine at Risk!"
+| table _time, user, src_ip, old_temp, new_temp, severity
