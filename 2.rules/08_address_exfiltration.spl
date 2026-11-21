@@ -1,0 +1,9 @@
+# Rule 8: Customer Address Exfiltration
+# MITRE ATT&CK: T1041 - Exfiltration Over C2 Channel
+# Description: Customer ke address ek saath bahar bheje = Data Leak!
+
+index=coldchain sourcetype=web_access_logs "GET" AND "addresses"
+| stats count by user, src_ip
+| where count > 20
+| eval severity="Critical", alert="Customer Address Exfiltration"
+| table _time, user, src_ip, count, severity
