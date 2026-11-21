@@ -1,0 +1,9 @@
+# Rule 2: Privilege Escalation Detection
+# MITRE ATT&CK: T1078 - Valid Accounts / T1068 - Privilege Escalation
+# Description: Normal user achanak admin ban gaya = Attack!
+
+index=coldchain sourcetype=linux_auth_logs "sudo" OR "COMMAND=/usr/bin/powershell"
+| stats count by user, src_ip
+| where count > 2
+| eval severity="Critical", alert="Privilege Escalation - Admin Access Misuse"
+| table _time, user, src_ip, count, severity
