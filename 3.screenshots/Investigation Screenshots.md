@@ -12,15 +12,15 @@ This project demonstrates end-to-end log analysis, threat hunting, detection eng
 
 ### 2. Successful Login Verification
 **Description:** Filtered for `login,success` events to distinguish legitimate user activity (`priya.sharma` from Hyderabad) from the unauthorized `admin` login originating from Russia.
-![Successful Login Search](Images/02-successful-logins-search.jpeg)
+![Successful Login Search](/Images/02-successful-logins-search.jpeg)
 
 ### 3. Data Exfiltration Investigation (`download_customer_data`)
 **Description:** Searched for sensitive data access actions, confirming that the attacker downloaded customer data immediately after compromising the `admin` account.
-![Download Customer Data Search](images/03-download-customer-data-search.jpeg)
+![Download Customer Data Search](/Images/03-download-customer-data-search.jpeg)
 
 ### 4. PowerShell Execution Check
 **Description:** Checked system logs for suspicious PowerShell activity (`action="*powershell*" OR action="*ps*"`) to rule out post-exploitation command execution (0 events found).
-![PowerShell Search](images/04-powershell-search.jpeg)
+![PowerShell Search](/Images/04-powershell-search.jpeg)
 
 ---
 
@@ -28,35 +28,35 @@ This project demonstrates end-to-end log analysis, threat hunting, detection eng
 
 ### 5. Brute-force Login Detection
 **Description:** Automated detection rule aggregating consecutive failed login attempts (5 failed attempts detected from a single source).
-![Brute-force Login Detection](images/05-brute-force-detection.jpeg)
+![Brute-force Login Detection](/Images/05-brute-force-detection.jpeg)
 
 ### 6. Brute Force Success - Account Compromised
 **Description:** High-severity correlation alert triggering when a successful login and data download follow multiple failed login attempts.
-![Brute Force Success](images/06-brute-force-success.jpeg)
+![Brute Force Success](/Images/06-brute-force-success.jpeg)
 
 ### 7. Suspicious Login from Foreign Location
 **Description:** Initial geo-location alert detecting unusual login activity originating from Russia.
-![Suspicious Login from Foreign Location](images/07-suspicious-foreign-login.jpeg)
+![Suspicious Login from Foreign Location](/Images/07-suspicious-foreign-login.jpeg)
 
 ### 8. Login from New Location - Tuned
 **Description:** Tuned version of the location alert where Hyderabad (authorized office location) is whitelisted to reduce false positives and alert fatigue.
-![Login from New Location Tuned](images/08-login-new-location-tuned.jpeg)
+![Login from New Location Tuned](/Images/08-login-new-location-tuned.jpeg)
 
 ### 9. Multiple Attacks from Single IP
 **Description:** Tracks and correlates all suspicious events tied to the malicious IP address `45.148.10.23`.
-![Multiple Attacks from Single IP](images/09-multiple-attacks-single-ip.jpeg)
+![Multiple Attacks from Single IP](/Images/09-multiple-attacks-single-ip.jpeg)
 
 ### 10. Sensitive Data Download Alert
 **Description:** Triggers an immediate alert whenever `download_customer_data` is executed from an untrusted or suspicious location.
-![Sensitive Data Download Alert](images/10-sensitive-data-download-alert.jpeg)
+![Sensitive Data Download Alert](/Images/10-sensitive-data-download-alert.jpeg)
 
 ### 11. Privilege Escalation Attempt
 **Description:** Monitors administrative account actions (`admin`) to detect unauthorized privilege misuse or escalation.
-![Privilege Escalation Attempt](images/11-privilege-escalation-attempt.jpeg)
+![Privilege Escalation Attempt](/Images/11-privilege-escalation-attempt.jpeg)
 
 ### 12. Suspicious PowerShell Activity Report
 **Description:** Saved report continuously monitoring logs for unauthorized PowerShell usage across endpoints.
-![Suspicious PowerShell Activity](images/12-suspicious-powershell-report.jpeg)
+![Suspicious PowerShell Activity](/Images/12-suspicious-powershell-report.jpeg)
 
 ---
 
@@ -64,8 +64,8 @@ This project demonstrates end-to-end log analysis, threat hunting, detection eng
 
 ### 13. SOC Dashboard - Cold Chain (Overview & Charts)
 **Description:** Visualizes alert counts by event type (bar chart) and event status distribution (pie chart) for rapid SOC triage.
-![SOC Dashboard Overview](images/13-soc-dashboard-charts.jpeg)
+![SOC Dashboard Overview](/Images/13-soc-dashboard-charts.jpeg)
 
 ### 14. SOC Dashboard - Cold Chain (Recent Events Table)
 **Description:** Displays a chronological table of recent authentication and data download events with timestamps, actions, and statuses.
-![SOC Dashboard Events Table](images/14-soc-dashboard-table.jpeg)
+![SOC Dashboard Events Table](/Images/14-soc-dashboard-table.jpeg)
