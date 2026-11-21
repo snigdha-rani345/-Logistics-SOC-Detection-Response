@@ -8,7 +8,7 @@ This project demonstrates end-to-end log analysis, threat hunting, detection eng
 
 ### 1. Failed Login Attempts Investigation
 **Description:** Queried the logs for `login,failed` events, uncovering 5 rapid failed authentication attempts against the `admin` account from a foreign IP (`45.148.10.23` in Russia).
-![Failed Login Search](images/01-failed-logins-search.jpeg)
+![Failed Login Search](Images/01-failed-logins-search.jpeg)
 
 ### 2. Successful Login Verification
 **Description:** Filtered for `login,success` events to distinguish legitimate user activity (`priya.sharma` from Hyderabad) from the unauthorized `admin` login originating from Russia.
